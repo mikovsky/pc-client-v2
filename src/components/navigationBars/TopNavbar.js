@@ -8,7 +8,9 @@ class TopNavbar extends Component {
       return (
         <ul className="navbar-nav px-3">
           <li className="nav-item text-nowrap">
-            <span className="nav-link">Log Out</span>
+            <Link to="/logout" className="nav-link">
+              Log Out
+            </Link>
           </li>
         </ul>
       );
