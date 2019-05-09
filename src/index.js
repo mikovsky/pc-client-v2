@@ -17,7 +17,9 @@ const ReactReduxDevTools =
 
 const store = createStore(
   reducers,
-  {},
+  {
+    authReducer: { authenticated: localStorage.getItem("token") }
+  },
   compose(
     applyMiddleware(reduxThunk),
     ReactReduxDevTools
