@@ -9,6 +9,7 @@ import App from "./components/App";
 import reducers from "./redux/reducers";
 import LandingPage from "./components/LandingPage";
 import LoginPage from "./components/auth/LoginPage";
+import RegisterPage from "./components/auth/RegisterPage";
 
 const ReactReduxDevTools =
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
@@ -28,6 +29,7 @@ ReactDOM.render(
       <App>
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/login" component={LoginPage} />
+        <Route exact path="/register" component={RegisterPage} />
       </App>
     </Router>
   </Provider>,

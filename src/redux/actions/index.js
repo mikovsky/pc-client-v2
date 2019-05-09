@@ -9,7 +9,27 @@ export const login = (formProps, callback) => async dispatch => {
       type: AUTH_USER,
       payload: res.data.token
     });
+    dispatch({
+      type: GET_ERRORS,
+      payload: {}
+    });
     localStorage.setItem("token", res.data.token);
+    callback();
+  } catch (e) {
+    dispatch({
+      type: GET_ERRORS,
+      payload: e.response.data
+    });
+  }
+};
+
+export const register = (formProps, callback) => async dispatch => {
+  try {
+    await axios.post(BACKEND_URL + "/api/auth/register", formProps);
+    dispatch({
+      type: GET_ERRORS,
+      payload: {}
+    });
     callback();
   } catch (e) {
     dispatch({

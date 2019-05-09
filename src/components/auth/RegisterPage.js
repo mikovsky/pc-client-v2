@@ -6,11 +6,16 @@ import { connect } from "react-redux";
 
 import authFormWrapper from "./authFormWrapper";
 import * as actions from "../../redux/actions";
-import { usernameField, passwordField } from "./authFormFields";
+import {
+  usernameField,
+  firstnameField,
+  passwordField,
+  confirmPasswordField
+} from "./authFormFields";
 
-class LoginPage extends Component {
+class RegisterPage extends Component {
   onSubmit = formProps => {
-    this.props.login(formProps, () => this.props.history.push("/"));
+    this.props.register(formProps, () => this.props.history.push("/login"));
   };
 
   render() {
@@ -20,16 +25,18 @@ class LoginPage extends Component {
         <h5 className="card-title text-center text-light">Log In</h5>
         <form onSubmit={handleSubmit(this.onSubmit)}>
           {usernameField(this.props)}
+          {firstnameField(this.props)}
           {passwordField(this.props)}
+          {confirmPasswordField(this.props)}
           <button className="btn btn-lg btn-outline-warning btn-block">
-            Log In
+            Register
           </button>
           <hr className="my-4 hr-color" />
           <Link
-            to="/register"
+            to="/login"
             className="btn btn-lg btn-outline-warning btn-block"
           >
-            Create an account
+            Already Have An Acoount
           </Link>
         </form>
       </React.Fragment>
@@ -50,5 +57,5 @@ export default authFormWrapper(
       actions
     ),
     reduxForm({ form: "login" })
-  )(LoginPage)
+  )(RegisterPage)
 );
