@@ -14,7 +14,7 @@ class LoginPage extends Component {
   }
 
   onSubmit = formProps => {
-    this.props.login(formProps, () => this.props.history.push("/"));
+    this.props.login(formProps, () => this.props.history.push("/dashboard"));
   };
 
   render() {
