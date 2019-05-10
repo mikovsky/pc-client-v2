@@ -13,17 +13,7 @@ export const login = (formProps, callback) => async dispatch => {
     localStorage.setItem("token", res.data.token);
     callback();
   } catch (e) {
-    if (e.response) {
-      dispatch({
-        type: GET_ERRORS,
-        payload: e.response.data
-      });
-    } else {
-      dispatch({
-        type: GET_ERRORS,
-        payload: { serverError: "Server not responding" }
-      });
-    }
+    handleErrorsFromHttpCall(e, dispatch);
   }
 };
 
@@ -33,10 +23,7 @@ export const register = (formProps, callback) => async dispatch => {
     cleanUpErrors();
     callback();
   } catch (e) {
-    dispatch({
-      type: GET_ERRORS,
-      payload: e.response.data
-    });
+    handleErrorsFromHttpCall(e, dispatch);
   }
 };
 
@@ -53,4 +40,18 @@ export const cleanUpErrors = () => dispatch => {
     type: GET_ERRORS,
     payload: {}
   });
+};
+
+export const handleErrorsFromHttpCall = async (error, dispatch) => {
+  if (error.response) {
+    dispatch({
+      type: GET_ERRORS,
+      payload: error.response.data
+    });
+  } else {
+    dispatch({
+      type: GET_ERRORS,
+      payload: { serverError: "Server not responding" }
+    });
+  }
 };
