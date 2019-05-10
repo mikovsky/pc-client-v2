@@ -1,5 +1,5 @@
 import React from "react";
-import PageTitle from "../utilsComponents/PageTitle";
+import PageTitle from "../PageTitle";
 import CoinChart from "./CoinChart";
 import TopCoinsTable from "./TopCoinsTable";
 

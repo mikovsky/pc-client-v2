@@ -1,30 +1,38 @@
 import axios from "axios";
-import { AUTH_USER, GET_ERRORS } from "../types";
+import { AUTH_USER, GET_ERRORS, FETCH_TOP_100_COINS } from "../types";
 import { BACKEND_URL } from "../../config";
+import { setAuthorizationToken } from "../../utils/setAuthorizationToken";
 
+/* ---=== AUTH ACTIONS ===--- */
 export const login = (formProps, callback) => async dispatch => {
-  try {
-    const res = await axios.post(BACKEND_URL + "/api/auth/login", formProps);
-    dispatch({
-      type: AUTH_USER,
-      payload: res.data.token
+  await axios
+    .post(BACKEND_URL + "/api/auth/login", formProps)
+    .then(res => {
+      const { token } = res.data;
+      dispatch({
+        type: AUTH_USER,
+        payload: token
+      });
+      dispatchErrorsCleanUp(dispatch);
+      localStorage.setItem("token", token);
+      setAuthorizationToken(token);
+      callback();
+    })
+    .catch(err => {
+      handleErrorsFromHttpCall(err, dispatch);
     });
-    dispatchErrorsCleanUp(dispatch);
-    localStorage.setItem("token", res.data.token);
-    callback();
-  } catch (e) {
-    handleErrorsFromHttpCall(e, dispatch);
-  }
 };
 
 export const register = (formProps, callback) => async dispatch => {
-  try {
-    await axios.post(BACKEND_URL + "/api/auth/register", formProps);
-    dispatchErrorsCleanUp(dispatch);
-    callback();
-  } catch (e) {
-    handleErrorsFromHttpCall(e, dispatch);
-  }
+  await axios
+    .post(BACKEND_URL + "/api/auth/register", formProps)
+    .then(res => {
+      dispatchErrorsCleanUp(dispatch);
+      callback();
+    })
+    .catch(err => {
+      handleErrorsFromHttpCall(err, dispatch);
+    });
 };
 
 export const logout = () => {
@@ -34,7 +42,25 @@ export const logout = () => {
     payload: ""
   };
 };
+/* ---=== END OF AUTH ACTIONS ===--- */
 
+/* ---=== EXTERNAL API ACTIONS ===--- */
+export const fetchTop100Coins = () => async dispatch => {
+  await axios
+    .get(BACKEND_URL + "/resourcesApi/top100Coins")
+    .then(res => {
+      dispatch({
+        type: FETCH_TOP_100_COINS,
+        payload: res.data.data
+      });
+    })
+    .catch(err => {
+      console.log(err.response);
+    });
+};
+/* ---=== END OF EXTERNAL API ACTIONS ===--- */
+
+/* ---=== UTILS ===--- */
 /*
 	Cleaning up errors after successful login or registration.
 	This function is being called in specific redux actions (e.g. login, register)
@@ -71,3 +97,4 @@ export const handleErrorsFromHttpCall = async (error, dispatch) => {
     });
   }
 };
+/* ---=== END OF UTILS ===--- */
