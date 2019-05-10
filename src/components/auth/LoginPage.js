@@ -18,7 +18,7 @@ class LoginPage extends Component {
     return (
       <React.Fragment>
         <h5 className="card-title text-center text-light">Log In</h5>
-        <form onSubmit={handleSubmit(this.onSubmit)}>
+        <form className="form-signin" onSubmit={handleSubmit(this.onSubmit)}>
           {usernameField(this.props)}
           {passwordField(this.props)}
           <button className="btn btn-lg btn-outline-warning btn-block">
