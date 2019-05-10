@@ -9,6 +9,10 @@ import * as actions from "../../redux/actions";
 import { usernameField, passwordField } from "./authFormFields";
 
 class LoginPage extends Component {
+  componentDidMount() {
+    this.props.cleanUpErrors();
+  }
+
   onSubmit = formProps => {
     this.props.login(formProps, () => this.props.history.push("/"));
   };
@@ -21,6 +25,11 @@ class LoginPage extends Component {
         <form className="form-signin" onSubmit={handleSubmit(this.onSubmit)}>
           {usernameField(this.props)}
           {passwordField(this.props)}
+          {this.props.errors.serverError && (
+            <div class="alert alert-danger" role="alert">
+              {this.props.errors.serverError}
+            </div>
+          )}
           <button className="btn btn-lg btn-outline-warning btn-block">
             Log In
           </button>

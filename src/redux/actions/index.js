@@ -9,27 +9,28 @@ export const login = (formProps, callback) => async dispatch => {
       type: AUTH_USER,
       payload: res.data.token
     });
-    dispatch({
-      type: GET_ERRORS,
-      payload: {}
-    });
+    cleanUpErrors();
     localStorage.setItem("token", res.data.token);
     callback();
   } catch (e) {
-    dispatch({
-      type: GET_ERRORS,
-      payload: e.response.data
-    });
+    if (e.response) {
+      dispatch({
+        type: GET_ERRORS,
+        payload: e.response.data
+      });
+    } else {
+      dispatch({
+        type: GET_ERRORS,
+        payload: { serverError: "Server not responding" }
+      });
+    }
   }
 };
 
 export const register = (formProps, callback) => async dispatch => {
   try {
     await axios.post(BACKEND_URL + "/api/auth/register", formProps);
-    dispatch({
-      type: GET_ERRORS,
-      payload: {}
-    });
+    cleanUpErrors();
     callback();
   } catch (e) {
     dispatch({
@@ -45,4 +46,11 @@ export const logout = () => {
     type: AUTH_USER,
     payload: ""
   };
+};
+
+export const cleanUpErrors = () => dispatch => {
+  dispatch({
+    type: GET_ERRORS,
+    payload: {}
+  });
 };

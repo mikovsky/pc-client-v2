@@ -14,6 +14,10 @@ import {
 } from "./authFormFields";
 
 class RegisterPage extends Component {
+  componentDidMount() {
+    this.props.cleanUpErrors();
+  }
+
   onSubmit = formProps => {
     this.props.register(formProps, () => this.props.history.push("/login"));
   };
@@ -23,7 +27,7 @@ class RegisterPage extends Component {
     return (
       <React.Fragment>
         <h5 className="card-title text-center text-light">Log In</h5>
-        <form onSubmit={handleSubmit(this.onSubmit)}>
+        <form className="form-signin" onSubmit={handleSubmit(this.onSubmit)}>
           {usernameField(this.props)}
           {firstnameField(this.props)}
           {passwordField(this.props)}
