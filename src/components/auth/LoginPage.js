@@ -10,7 +10,7 @@ import { usernameField, passwordField } from "./authFormFields";
 
 class LoginPage extends Component {
   componentDidMount() {
-    this.props.cleanUpErrors();
+    this.props.cleanUpErrorsOnSwitchingForms();
   }
 
   onSubmit = formProps => {

@@ -15,7 +15,7 @@ import {
 
 class RegisterPage extends Component {
   componentDidMount() {
-    this.props.cleanUpErrors();
+    this.props.cleanUpErrorsOnSwitchingForms();
   }
 
   onSubmit = formProps => {

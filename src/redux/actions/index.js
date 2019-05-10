@@ -9,7 +9,7 @@ export const login = (formProps, callback) => async dispatch => {
       type: AUTH_USER,
       payload: res.data.token
     });
-    cleanUpErrors();
+    dispatchErrorsCleanUp(dispatch);
     localStorage.setItem("token", res.data.token);
     callback();
   } catch (e) {
@@ -20,7 +20,7 @@ export const login = (formProps, callback) => async dispatch => {
 export const register = (formProps, callback) => async dispatch => {
   try {
     await axios.post(BACKEND_URL + "/api/auth/register", formProps);
-    cleanUpErrors();
+    dispatchErrorsCleanUp(dispatch);
     callback();
   } catch (e) {
     handleErrorsFromHttpCall(e, dispatch);
@@ -35,7 +35,23 @@ export const logout = () => {
   };
 };
 
-export const cleanUpErrors = () => dispatch => {
+/*
+	Cleaning up errors after successful login or registration.
+	This function is being called in specific redux actions (e.g. login, register)
+	This function receives dispatch from login or register actions as a parameter
+*/
+export const dispatchErrorsCleanUp = async dispatch => {
+  dispatch({
+    type: GET_ERRORS,
+    payload: {}
+  });
+};
+
+/*
+	Cleaning up errors from reducer state while switching between login and register page.
+	This function is being called directly from component in componentDidMount method
+*/
+export const cleanUpErrorsOnSwitchingForms = () => dispatch => {
   dispatch({
     type: GET_ERRORS,
     payload: {}
