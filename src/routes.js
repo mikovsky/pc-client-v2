@@ -7,6 +7,7 @@ import RegisterPage from "./components/auth/RegisterPage";
 import LogoutPage from "./components/auth/LogoutPage";
 import Dashboard from "./components/dashboard/Dashboard";
 import Wallet from "./components/wallet/Wallet";
+import AddCoin from "./components/wallet/AddCoin";
 
 export default () => {
   return (
@@ -18,6 +19,7 @@ export default () => {
         <Route exact path="/logout" component={LogoutPage} />
         <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/wallet" component={Wallet} />
+        <Route exact path="/wallet/addCoin" component={AddCoin} />
       </App>
     </Router>
   );

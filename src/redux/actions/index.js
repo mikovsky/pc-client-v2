@@ -87,6 +87,18 @@ export const getCoins = () => async dispatch => {
       });
     });
 };
+
+export const addCoin = (formProps, callback) => async dispatch => {
+  await axios
+    .post(BACKEND_URL + "/api/wallet", formProps)
+    .then(res => {
+      dispatchErrorsCleanUp(dispatch);
+      callback();
+    })
+    .catch(err => {
+      handleErrorsFromHttpCall(err, dispatch);
+    });
+};
 /* ---=== END OF INTERNAL REST API ACTIONS ===--- */
 
 /* ---=== UTILS ===--- */
