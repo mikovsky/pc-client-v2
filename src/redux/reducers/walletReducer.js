@@ -1,17 +1,16 @@
-import { FETCH_TOP_100_COINS } from "../types";
+import { GET_COINS } from "../types";
 
 const INITIAL_STATE = {
-  top100Coins: [],
-  coinDetails: {},
-  events: {}
+  walletCoins: [],
+  walletCoin: {}
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case FETCH_TOP_100_COINS:
+    case GET_COINS:
       return {
         ...state,
-        top100Coins: action.payload
+        walletCoins: action.payload
       };
     default:
       return state;

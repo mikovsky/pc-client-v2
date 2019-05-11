@@ -1,5 +1,10 @@
 import axios from "axios";
-import { AUTH_USER, GET_ERRORS, FETCH_TOP_100_COINS } from "../types";
+import {
+  AUTH_USER,
+  GET_ERRORS,
+  FETCH_TOP_100_COINS,
+  GET_COINS
+} from "../types";
 import { BACKEND_URL } from "../../config";
 import { setAuthorizationToken } from "../../utils/setAuthorizationToken";
 
@@ -49,16 +54,33 @@ export const fetchTop100Coins = () => async dispatch => {
   await axios
     .get(BACKEND_URL + "/resourcesApi/top100Coins")
     .then(res => {
+      console.log(res);
       dispatch({
         type: FETCH_TOP_100_COINS,
         payload: res.data.data
       });
     })
     .catch(err => {
-      console.log(err.response);
+      console.log(err);
     });
 };
 /* ---=== END OF EXTERNAL API ACTIONS ===--- */
+
+/* ---=== INTERNAL REST API ACTIONS ===--- */
+export const getCoins = () => async dispatch => {
+  await axios
+    .get(BACKEND_URL + "/api/wallet")
+    .then(res => {
+      dispatch({
+        type: GET_COINS,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      console.log(err.response);
+    });
+};
+/* ---=== END OF INTERNAL REST API ACTIONS ===--- */
 
 /* ---=== UTILS ===--- */
 /*

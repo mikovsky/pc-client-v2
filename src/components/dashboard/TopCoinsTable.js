@@ -9,8 +9,9 @@ class TopCoinsTable extends Component {
   }
 
   renderTableContent = () => {
-    if (this.props.top100Coins.length > 0) {
-      return this.props.top100Coins.map(coin => {
+    const { top100Coins } = this.props;
+    if (top100Coins.length > 0) {
+      return top100Coins.map(coin => {
         return <TopCoinsTableItem key={coin.id} coin={coin} />;
       });
     } else {
@@ -19,7 +20,7 @@ class TopCoinsTable extends Component {
           <td colSpan="5" className="bg-warning text-dark">
             <i
               style={{ fontSize: "2rem" }}
-              class="fas fa-exclamation-triangle"
+              className="fas fa-exclamation-triangle"
             />
             <br />
             Failed to load data from external server
@@ -30,7 +31,6 @@ class TopCoinsTable extends Component {
   };
 
   render() {
-    console.log(this.props.top100Coins);
     return (
       <React.Fragment>
         <h3 className="mt-3">Best 100 Coins</h3>

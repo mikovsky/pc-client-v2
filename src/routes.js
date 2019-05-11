@@ -6,6 +6,7 @@ import LoginPage from "./components/auth/LoginPage";
 import RegisterPage from "./components/auth/RegisterPage";
 import LogoutPage from "./components/auth/LogoutPage";
 import Dashboard from "./components/dashboard/Dashboard";
+import Wallet from "./components/wallet/Wallet";
 
 export default () => {
   return (
@@ -16,6 +17,7 @@ export default () => {
         <Route exact path="/register" component={RegisterPage} />
         <Route exact path="/logout" component={LogoutPage} />
         <Route exact path="/dashboard" component={Dashboard} />
+        <Route exact path="/wallet" component={Wallet} />
       </App>
     </Router>
   );
