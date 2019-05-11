@@ -10,7 +10,7 @@ class TopCoinsTable extends Component {
 
   renderTableContent = () => {
     const { top100Coins } = this.props;
-    if (top100Coins.length > 0) {
+    if (!this.props.errors.errorMessage) {
       return top100Coins.map(coin => {
         return <TopCoinsTableItem key={coin.id} coin={coin} />;
       });
@@ -23,7 +23,7 @@ class TopCoinsTable extends Component {
               className="fas fa-exclamation-triangle"
             />
             <br />
-            Failed to load data from external server
+            {this.props.errors.errorMessage}
           </td>
         </tr>
       );
@@ -55,7 +55,8 @@ class TopCoinsTable extends Component {
 
 const mapStateToProps = state => {
   return {
-    top100Coins: state.externalApiReducer.top100Coins
+    top100Coins: state.externalApiReducer.top100Coins,
+    errors: state.errorReducer
   };
 };
 

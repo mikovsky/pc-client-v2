@@ -54,14 +54,17 @@ export const fetchTop100Coins = () => async dispatch => {
   await axios
     .get(BACKEND_URL + "/resourcesApi/top100Coins")
     .then(res => {
-      console.log(res);
       dispatch({
         type: FETCH_TOP_100_COINS,
         payload: res.data.data
       });
+      dispatchErrorsCleanUp(dispatch);
     })
     .catch(err => {
-      console.log(err);
+      dispatch({
+        type: GET_ERRORS,
+        payload: { errorMessage: "Failed to load data from external server" }
+      });
     });
 };
 /* ---=== END OF EXTERNAL API ACTIONS ===--- */
@@ -75,9 +78,13 @@ export const getCoins = () => async dispatch => {
         type: GET_COINS,
         payload: res.data
       });
+      dispatchErrorsCleanUp(dispatch);
     })
     .catch(err => {
-      console.log(err.response);
+      dispatch({
+        type: GET_ERRORS,
+        payload: { errorMessage: "Failed to load coins from internal server" }
+      });
     });
 };
 /* ---=== END OF INTERNAL REST API ACTIONS ===--- */

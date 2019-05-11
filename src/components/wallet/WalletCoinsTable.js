@@ -11,14 +11,27 @@ class WalletCoinsTable extends Component {
 
   renderTableContent = () => {
     const { walletCoins } = this.props;
-    if (walletCoins.length > 0) {
+    if (!this.props.errors.errorMessage) {
       return walletCoins.map(coin => {
         return <WalletCoinsTableItem key={coin.id} coin={coin} />;
       });
-    } else {
+    } else if (walletCoins.length > 0) {
       return (
         <tr>
           <td colSpan="10">Your wallet is empty!</td>
+        </tr>
+      );
+    } else {
+      return (
+        <tr>
+          <td colSpan="10" className="bg-warning text-dark">
+            <i
+              style={{ fontSize: "2rem" }}
+              className="fas fa-exclamation-triangle"
+            />
+            <br />
+            {this.props.errors.errorMessage}
+          </td>
         </tr>
       );
     }
@@ -65,7 +78,8 @@ class WalletCoinsTable extends Component {
 
 const mapStateToProps = state => {
   return {
-    walletCoins: state.walletReducer.walletCoins
+    walletCoins: state.walletReducer.walletCoins,
+    errors: state.errorReducer
   };
 };
 
