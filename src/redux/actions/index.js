@@ -144,19 +144,54 @@ export const fetchCoin = ownershipCode => async dispatch => {
     });
 };
 
-export const addCoin = (formProps, callback) => async dispatch => {
-  await axios
-    .post(BACKEND_URL + "/api/wallet", formProps)
-    .then(res => {
-      dispatchErrorsCleanUp(dispatch);
-      callback();
-    })
-    .catch(err => {
-      handleErrorsFromHttpCall(err, dispatch);
+const validateRequest = (formProps, dispatch) => {
+  let isValid = true;
+  if (formProps.amount === "0" && formProps.priceWhenBought === "0") {
+    dispatch({
+      type: GET_ERRORS,
+      payload: {
+        amount: "Amount must be greater than 0",
+        priceWhenBought: "Price when coin was bought must be greater than 0"
+      }
     });
+    isValid = false;
+  } else if (formProps.priceWhenBought === "0") {
+    dispatch({
+      type: GET_ERRORS,
+      payload: {
+        priceWhenBought: "Price when coin was bought must be greater than 0"
+      }
+    });
+    isValid = false;
+  } else if (formProps.amount === "0") {
+    dispatch({
+      type: GET_ERRORS,
+      payload: {
+        amount: "Amount must be greater than 0"
+      }
+    });
+    isValid = false;
+  }
+  return isValid;
+};
+
+export const addCoin = (formProps, callback) => async dispatch => {
+  dispatchErrorsCleanUp(dispatch);
+  if (validateRequest(formProps, dispatch)) {
+    await axios
+      .post(BACKEND_URL + "/api/wallet", formProps)
+      .then(res => {
+        dispatchErrorsCleanUp(dispatch);
+        callback();
+      })
+      .catch(err => {
+        handleErrorsFromHttpCall(err, dispatch);
+      });
+  }
 };
 
 export const updateCoin = (formProps, callback) => async dispatch => {
+  validateRequest(formProps, dispatch);
   await axios
     .patch(BACKEND_URL + `/api/wallet/${formProps.ownershipCode}`, formProps)
     .then(res => {
