@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import * as actions from "../../redux/actions";
 
 class TopCoinsTableItem extends Component {
   color = "text-body";
@@ -44,11 +46,15 @@ class TopCoinsTableItem extends Component {
     }
   };
 
+  onClickSelectCoin = coin => {
+    this.props.selectCoin(coin);
+  };
+
   render() {
     const { coin } = this.props;
     return (
       <React.Fragment>
-        <tr>
+        <tr onClick={() => this.onClickSelectCoin(coin)}>
           <td>{coin.rank}</td>
           <td>{coin.symbol}</td>
           <td>{coin.name}</td>
@@ -60,4 +66,7 @@ class TopCoinsTableItem extends Component {
   }
 }
 
-export default TopCoinsTableItem;
+export default connect(
+  null,
+  actions
+)(TopCoinsTableItem);

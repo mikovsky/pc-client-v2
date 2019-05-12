@@ -19,7 +19,14 @@ class CoinChart extends Component {
   };
 
   componentDidMount() {
-    this.props.fetchCoinHistory("bitcoin");
+    this.props.fetchCoinHistory(this.props.selectedCoin.id);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { selectedCoin } = this.props;
+    if (prevProps.selectedCoin.id !== selectedCoin.id) {
+      this.props.fetchCoinHistory(selectedCoin.id);
+    }
   }
 
   supplyChartData = () => {
@@ -36,6 +43,7 @@ class CoinChart extends Component {
       }).format(Date.parse(coin.date));
     });
     this.chartObject.data.labels = dates;
+    this.chartObject.data.datasets[0].label = this.props.selectedCoin.name;
   };
 
   setData = () => {
@@ -62,7 +70,8 @@ class CoinChart extends Component {
 
 const mapStateToProps = state => {
   return {
-    coinHistory: state.externalApiReducer.coinHistory
+    coinHistory: state.externalApiReducer.coinHistory,
+    selectedCoin: state.chartReducer.selectedCoin
   };
 };
 

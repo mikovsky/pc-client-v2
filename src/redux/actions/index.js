@@ -7,7 +7,8 @@ import {
   FETCH_COIN,
   DELETE_COIN,
   FETCH_EVENTS,
-  FETCH_COIN_HISTORY
+  FETCH_COIN_HISTORY,
+  SELECT_COIN
 } from "../types";
 import { BACKEND_URL } from "../../config";
 import { setAuthorizationToken } from "../../utils/setAuthorizationToken";
@@ -178,6 +179,15 @@ export const deleteCoin = ownershipCode => async dispatch => {
   }
 };
 /* ---=== END OF INTERNAL REST API ACTIONS ===--- */
+
+/* ---=== CHART ACTIONS ===--- */
+export const selectCoin = coin => dispatch => {
+  dispatch({
+    type: SELECT_COIN,
+    payload: coin
+  });
+};
+/* ---=== END OF CHART ACTIONS ===--- */
 
 /* ---=== UTILS ===--- */
 /*
