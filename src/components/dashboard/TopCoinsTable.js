@@ -5,7 +5,9 @@ import TopCoinsTableItem from "./TopCoinsTableItem";
 
 class TopCoinsTable extends Component {
   componentDidMount() {
-    this.props.fetchTop100Coins();
+    if (this.props.authenticated) {
+      this.props.fetchTop100Coins();
+    }
   }
 
   renderTableContent = () => {
@@ -56,7 +58,8 @@ class TopCoinsTable extends Component {
 const mapStateToProps = state => {
   return {
     top100Coins: state.externalApiReducer.top100Coins,
-    errors: state.errorReducer
+    errors: state.errorReducer,
+    authenticated: state.authReducer.authenticated
   };
 };
 

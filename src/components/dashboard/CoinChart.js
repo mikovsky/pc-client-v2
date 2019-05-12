@@ -19,12 +19,17 @@ class CoinChart extends Component {
   };
 
   componentDidMount() {
-    this.props.fetchCoinHistory(this.props.selectedCoin.id);
+    if (this.props.authenticated) {
+      this.props.fetchCoinHistory(this.props.selectedCoin.id);
+    }
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     const { selectedCoin } = this.props;
-    if (prevProps.selectedCoin.id !== selectedCoin.id) {
+    if (
+      prevProps.selectedCoin.id !== selectedCoin.id &&
+      this.props.authenticated
+    ) {
       this.props.fetchCoinHistory(selectedCoin.id);
     }
   }
@@ -71,7 +76,8 @@ class CoinChart extends Component {
 const mapStateToProps = state => {
   return {
     coinHistory: state.externalApiReducer.coinHistory,
-    selectedCoin: state.chartReducer.selectedCoin
+    selectedCoin: state.chartReducer.selectedCoin,
+    authenticated: state.authReducer.authenticated
   };
 };
 
