@@ -5,7 +5,8 @@ import {
   FETCH_TOP_100_COINS,
   GET_COINS,
   FETCH_COIN,
-  DELETE_COIN
+  DELETE_COIN,
+  FETCH_EVENTS
 } from "../types";
 import { BACKEND_URL } from "../../config";
 import { setAuthorizationToken } from "../../utils/setAuthorizationToken";
@@ -61,6 +62,23 @@ export const fetchTop100Coins = () => async dispatch => {
         payload: res.data.data
       });
       dispatchErrorsCleanUp(dispatch);
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: { errorMessage: "Failed to load data from external server" }
+      });
+    });
+};
+
+export const fetchEvents = () => async dispatch => {
+  await axios
+    .get(BACKEND_URL + "/resourcesApi/events")
+    .then(res => {
+      dispatch({
+        type: FETCH_EVENTS,
+        payload: res.data.body
+      });
     })
     .catch(err => {
       dispatch({

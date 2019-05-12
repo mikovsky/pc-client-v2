@@ -9,6 +9,7 @@ import Dashboard from "./components/dashboard/Dashboard";
 import Wallet from "./components/wallet/Wallet";
 import AddCoin from "./components/wallet/AddCoin";
 import UpdateCoin from "./components/wallet/UpdateCoin";
+import News from "./components/news/News";
 
 export default () => {
   return (
@@ -26,6 +27,7 @@ export default () => {
           path="/wallet/updateCoin/:ownershipCode"
           component={UpdateCoin}
         />
+        <Route exact path="/news" component={News} />
       </App>
     </Router>
   );
