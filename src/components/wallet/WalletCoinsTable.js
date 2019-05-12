@@ -11,13 +11,17 @@ class WalletCoinsTable extends Component {
   renderTableContent = () => {
     const { walletCoins } = this.props;
     if (!this.props.errors.errorMessage && walletCoins.length > 0) {
-      return walletCoins.map(coin => {
-        return <WalletCoinsTableItem key={coin.id} coin={coin} />;
+      return walletCoins.map((coin, index) => {
+        return (
+          <WalletCoinsTableItem key={coin.id} coin={coin} index={index + 1} />
+        );
       });
     } else if (!this.props.errors.errorMessage && walletCoins.length === 0) {
       return (
         <tr>
-          <td colSpan="10">Your wallet is empty!</td>
+          <td colSpan="10" className="align-middle">
+            Your wallet is empty!
+          </td>
         </tr>
       );
     } else {

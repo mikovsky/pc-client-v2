@@ -61,12 +61,13 @@ class CoinChart extends Component {
   render() {
     this.supplyChartData();
     return (
-      <div style={{ position: "relative", width: "100%", heigth: "100%" }}>
+      <div style={{ position: "relative" }}>
         <Line
           options={{
             responsive: true
           }}
           data={this.chartObject.data}
+          height={127}
         />
       </div>
     );

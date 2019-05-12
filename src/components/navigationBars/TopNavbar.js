@@ -3,32 +3,59 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 class TopNavbar extends Component {
-  renderLinks() {
+  renderMenuLinks = () => {
     if (this.props.authenticated) {
       return (
-        <ul className="navbar-nav px-3">
-          <li className="nav-item text-nowrap">
-            <Link to="/logout" className="nav-link">
+        <React.Fragment>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon" />
+          </button>
+          <div className="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item">
+                <Link className="nav-link" to="/dashboard">
+                  Dashboard
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/wallet">
+                  Wallet
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/news">
+                  News
+                </Link>
+              </li>
+            </ul>
+            <Link
+              to="/logout"
+              className="btn btn-sm btn-outline-warning my-2 my-sm-0"
+            >
               Log Out
             </Link>
-          </li>
-        </ul>
+          </div>
+        </React.Fragment>
       );
     }
-  }
+  };
+
   render() {
     return (
-      <React.Fragment>
-        <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow navbar-color">
-          <Link
-            to="/dashboard"
-            className="navbar-brand col-sm-3 col-md-2 mr-0 text-center"
-          >
-            Profit-Coin
-          </Link>
-          {this.renderLinks()}
-        </nav>
-      </React.Fragment>
+      <nav className="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <Link to="/dashboard" className="navbar-brand">
+          Profit-Coin
+        </Link>
+        {this.renderMenuLinks()}
+      </nav>
     );
   }
 }

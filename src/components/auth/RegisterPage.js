@@ -40,7 +40,7 @@ class RegisterPage extends Component {
             to="/login"
             className="btn btn-lg btn-outline-warning btn-block"
           >
-            Already Have An Acoount
+            Already Have An Account
           </Link>
         </form>
       </React.Fragment>

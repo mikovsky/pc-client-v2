@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import * as actions from "../../redux/actions";
 
 class TopCoinsTableItem extends Component {
-  color = "text-body";
+  color = ".text-light";
 
   render24HoursChange = coin => {
     if (coin.changePercent24Hr > 0) {

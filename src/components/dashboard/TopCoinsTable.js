@@ -37,7 +37,7 @@ class TopCoinsTable extends Component {
       <React.Fragment>
         <h3 className="mt-3">Best 100 Coins</h3>
         <div className="table-responsive">
-          <table className="table table-striped table-hover table-sm text-center">
+          <table className="table table-striped table-hover table-sm text-center text-light">
             <thead>
               <tr>
                 <th>#</th>

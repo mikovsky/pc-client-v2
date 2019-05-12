@@ -18,13 +18,13 @@ class News extends Component {
       });
     } else if (!errorMessage && events.length === 0) {
       return (
-        <div class="alert alert-secondary" role="alert">
+        <div className="alert alert-secondary" role="alert">
           There is no events at the moment!
         </div>
       );
     } else {
       return (
-        <div class="alert alert-warning" role="alert">
+        <div className="alert alert-warning" role="alert">
           <i
             style={{ fontSize: "2rem" }}
             className="fas fa-exclamation-triangle"

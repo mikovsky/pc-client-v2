@@ -22,23 +22,25 @@ class WalletCoinsTableItem extends Component {
     const { coin } = this.props;
     return (
       <tr>
-        <th scope="row">1</th>
-        <td>{coin.coinSymbol}</td>
-        <td>{coin.coinName}</td>
-        <td>{coin.amount}</td>
-        <td>{this.formatToUsd(coin.summaryValue)}</td>
-        <td>{this.formatToUsd(coin.currentPrice)}</td>
-        <td>{this.formatToUsd(coin.priceWhenBought)}</td>
+        <th scope="row">{this.props.index}</th>
+        <td className="align-middle">{coin.coinSymbol}</td>
+        <td className="align-middle">{coin.coinName}</td>
+        <td className="align-middle">{coin.amount}</td>
+        <td className="align-middle">{this.formatToUsd(coin.summaryValue)}</td>
+        <td className="align-middle">{this.formatToUsd(coin.currentPrice)}</td>
+        <td className="align-middle">
+          {this.formatToUsd(coin.priceWhenBought)}
+        </td>
         <td
           className={classnames({
-            "text-body": true,
-            "text-success": coin.profit > 0,
-            "text-danger": coin.profit < 0
+            "text-ligth align-middle": coin.profit === 0,
+            "text-success align-middle": coin.profit > 0,
+            "text-danger align-middle": coin.profit < 0
           })}
         >
           {this.formatToUsd(coin.profit)}
         </td>
-        <td>
+        <td className="align-middle">
           <Link
             to={`/wallet/updateCoin/${coin.ownershipCode}`}
             className="btn btn-outline-light btn-sm"
@@ -46,7 +48,7 @@ class WalletCoinsTableItem extends Component {
             Update
           </Link>
         </td>
-        <td>
+        <td className="align-middle">
           <button
             className="btn btn-outline-danger btn-sm"
             onClick={this.onDeleteClick}

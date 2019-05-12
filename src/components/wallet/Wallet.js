@@ -14,7 +14,7 @@ const Wallet = () => {
           to="/wallet/addCoin"
           className="btn btn-block btn-outline-warning btn-sm"
         >
-          Create
+          Add Coin
         </Link>
       </div>
     </React.Fragment>

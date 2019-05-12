@@ -59,6 +59,7 @@ class AddCoin extends Component {
                 "is-invalid": errors.amount
               })}
               min="0"
+              max="1000000"
               step="any"
               component="input"
             />
@@ -69,7 +70,7 @@ class AddCoin extends Component {
             )}
           </div>
           <div className="form-group">
-            <label>Price when coin was bought</label>
+            <label>Price when coin was bought (USD)</label>
             <Field
               name="priceWhenBought"
               type="number"
@@ -77,6 +78,7 @@ class AddCoin extends Component {
                 "is-invalid": errors.priceWhenBought
               })}
               min="0"
+              max="1000000"
               step="any"
               component="input"
             />
