@@ -21,7 +21,11 @@ export default () => {
         <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/wallet" component={Wallet} />
         <Route exact path="/wallet/addCoin" component={AddCoin} />
-        <Route exact path="/wallet/:ownershipCode" component={UpdateCoin} />
+        <Route
+          exact
+          path="/wallet/updateCoin/:ownershipCode"
+          component={UpdateCoin}
+        />
       </App>
     </Router>
   );

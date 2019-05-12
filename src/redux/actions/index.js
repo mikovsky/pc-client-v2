@@ -4,7 +4,8 @@ import {
   GET_ERRORS,
   FETCH_TOP_100_COINS,
   GET_COINS,
-  FETCH_COIN
+  FETCH_COIN,
+  DELETE_COIN
 } from "../types";
 import { BACKEND_URL } from "../../config";
 import { setAuthorizationToken } from "../../utils/setAuthorizationToken";
@@ -128,6 +129,17 @@ export const updateCoin = (formProps, callback) => async dispatch => {
     .catch(err => {
       handleErrorsFromHttpCall(err, dispatch);
     });
+};
+
+export const deleteCoin = ownershipCode => async dispatch => {
+  if (window.confirm("Are you sure?")) {
+    await axios.delete(BACKEND_URL + `/api/wallet/${ownershipCode}`);
+
+    dispatch({
+      type: DELETE_COIN,
+      payload: ownershipCode
+    });
+  }
 };
 /* ---=== END OF INTERNAL REST API ACTIONS ===--- */
 

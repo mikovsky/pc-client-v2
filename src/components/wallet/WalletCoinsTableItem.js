@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import classnames from "classnames";
+import * as actions from "../../redux/actions";
+import { connect } from "react-redux";
 
 class WalletCoinsTableItem extends Component {
   formatToUsd = value => {
@@ -9,6 +11,11 @@ class WalletCoinsTableItem extends Component {
       currency: "USD",
       currencyDisplay: "symbol"
     }).format(value);
+  };
+
+  onDeleteClick = () => {
+    const { ownershipCode } = this.props.coin;
+    this.props.deleteCoin(ownershipCode);
   };
 
   render() {
@@ -32,21 +39,27 @@ class WalletCoinsTableItem extends Component {
           {this.formatToUsd(coin.profit)}
         </td>
         <td>
-          {/* to={`/updateCoin/${coin.ownershipCode}`} */}
           <Link
-            to={`/wallet/${coin.ownershipCode}`}
+            to={`/wallet/updateCoin/${coin.ownershipCode}`}
             className="btn btn-outline-light btn-sm"
           >
             Update
           </Link>
         </td>
         <td>
-          {/* onClick={this.onDeleteClick.bind(this, coin.ownershipCode)} */}
-          <button className="btn btn-outline-danger btn-sm">Delete</button>
+          <button
+            className="btn btn-outline-danger btn-sm"
+            onClick={this.onDeleteClick}
+          >
+            Delete
+          </button>
         </td>
       </tr>
     );
   }
 }
 
-export default WalletCoinsTableItem;
+export default connect(
+  null,
+  actions
+)(WalletCoinsTableItem);
