@@ -5,3 +5,4 @@ export const GET_COINS = "GET_COINS";
 export const FETCH_COIN = "FETCH_COIN";
 export const DELETE_COIN = "DELETE_COIN";
 export const FETCH_EVENTS = "FETCH_EVENTS";
+export const FETCH_COIN_HISTORY = "FETCH_COIN_HISTORY";

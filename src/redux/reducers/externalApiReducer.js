@@ -1,8 +1,12 @@
-import { FETCH_TOP_100_COINS, FETCH_EVENTS } from "../types";
+import {
+  FETCH_TOP_100_COINS,
+  FETCH_EVENTS,
+  FETCH_COIN_HISTORY
+} from "../types";
 
 const INITIAL_STATE = {
   top100Coins: [],
-  coinDetails: {},
+  coinHistory: [],
   events: []
 };
 
@@ -17,6 +21,11 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         events: action.payload
+      };
+    case FETCH_COIN_HISTORY:
+      return {
+        ...state,
+        coinHistory: action.payload
       };
     default:
       return state;
