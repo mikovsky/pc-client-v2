@@ -11,17 +11,17 @@ import AddCoin from "./components/wallet/AddCoin";
 import UpdateCoin from "./components/wallet/UpdateCoin";
 import News from "./components/news/News";
 import SecuredRoute from "./utils/SecuredRoute";
+import PageNotFound from "./components/PageNotFound";
 
 export default () => {
   return (
     <Router>
       <App>
-        <Route exact path="/" component={LandingPage} />
-        <Route exact path="/login" component={LoginPage} />
-        <Route exact path="/register" component={RegisterPage} />
-        <Route exact path="/logout" component={LogoutPage} />
-
         <Switch>
+          <Route exact path="/" component={LandingPage} />
+          <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/register" component={RegisterPage} />
+          <Route exact path="/logout" component={LogoutPage} />
           <SecuredRoute exact path="/dashboard" component={Dashboard} />
           <SecuredRoute exact path="/wallet" component={Wallet} />
           <SecuredRoute exact path="/wallet/addCoin" component={AddCoin} />
@@ -31,6 +31,7 @@ export default () => {
             component={UpdateCoin}
           />
           <SecuredRoute exact path="/news" component={News} />
+          <Route component={PageNotFound} />
         </Switch>
       </App>
     </Router>

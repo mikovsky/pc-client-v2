@@ -6,11 +6,26 @@ import { connect } from "react-redux";
 
 class WalletCoinsTableItem extends Component {
   formatToUsd = value => {
-    return new Intl.NumberFormat("us-US", {
-      style: "currency",
-      currency: "USD",
-      currencyDisplay: "symbol"
-    }).format(value);
+    if (value > 0.01) {
+      return new Intl.NumberFormat("us-US", {
+        style: "currency",
+        currency: "USD",
+        currencyDisplay: "symbol"
+      }).format(value);
+    } else if (value < 0.01 && value > 0.0) {
+      return new Intl.NumberFormat("us-US", {
+        style: "currency",
+        currency: "USD",
+        currencyDisplay: "symbol",
+        minimumFractionDigits: 5
+      }).format(value);
+    } else {
+      return new Intl.NumberFormat("us-US", {
+        style: "currency",
+        currency: "USD",
+        currencyDisplay: "symbol"
+      }).format(value);
+    }
   };
 
   onDeleteClick = () => {

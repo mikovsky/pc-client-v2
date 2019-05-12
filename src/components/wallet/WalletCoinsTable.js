@@ -40,33 +40,55 @@ class WalletCoinsTable extends Component {
     }
   };
 
+  renderSummaryProfit = () => {
+    const { walletCoins } = this.props;
+    if (!this.props.errors.errorMessage && walletCoins.length > 0) {
+      const sum = walletCoins
+        .map(coin => coin.profit)
+        .reduce((partial_sum, a) => partial_sum + a, 0);
+      return (
+        <div className="alert alert-dark" role="alert">
+          Total profit:{" "}
+          {new Intl.NumberFormat("us-US", {
+            style: "currency",
+            currency: "USD",
+            currencyDisplay: "symbol"
+          }).format(sum)}
+        </div>
+      );
+    }
+  };
+
   render() {
     return (
-      <table className="table table-bordered table-hover table-striped table-dark text-center">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Coin Symbol</th>
-            <th scope="col">Coin Name</th>
-            <th scope="col">Amount</th>
-            <th scope="col">Summary Value</th>
-            <th scope="col">
-              Current Price
-              <br />
-              (for 1 piece)
-            </th>
-            <th scope="col">
-              Price when bought
-              <br />
-              (for 1 piece)
-            </th>
-            <th scope="col">Profit</th>
-            <th scope="col">Update</th>
-            <th scope="col">Delete</th>
-          </tr>
-        </thead>
-        <tbody>{this.renderTableContent()}</tbody>
-      </table>
+      <React.Fragment>
+        <table className="table table-bordered table-hover table-striped table-dark text-center">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Coin Symbol</th>
+              <th scope="col">Coin Name</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Summary Value</th>
+              <th scope="col">
+                Current Price
+                <br />
+                (for 1 piece)
+              </th>
+              <th scope="col">
+                Price when bought
+                <br />
+                (for 1 piece)
+              </th>
+              <th scope="col">Profit</th>
+              <th scope="col">Update</th>
+              <th scope="col">Delete</th>
+            </tr>
+          </thead>
+          <tbody>{this.renderTableContent()}</tbody>
+        </table>
+        {this.renderSummaryProfit()}
+      </React.Fragment>
     );
   }
 }
