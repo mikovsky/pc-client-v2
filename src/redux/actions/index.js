@@ -3,7 +3,8 @@ import {
   AUTH_USER,
   GET_ERRORS,
   FETCH_TOP_100_COINS,
-  GET_COINS
+  GET_COINS,
+  FETCH_COIN
 } from "../types";
 import { BACKEND_URL } from "../../config";
 import { setAuthorizationToken } from "../../utils/setAuthorizationToken";
@@ -88,9 +89,38 @@ export const getCoins = () => async dispatch => {
     });
 };
 
+export const fetchCoin = ownershipCode => async dispatch => {
+  await axios
+    .get(BACKEND_URL + `/api/wallet/${ownershipCode}`)
+    .then(res => {
+      dispatch({
+        type: FETCH_COIN,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: { errorMessage: "Failed to load coins from internal server" }
+      });
+    });
+};
+
 export const addCoin = (formProps, callback) => async dispatch => {
   await axios
     .post(BACKEND_URL + "/api/wallet", formProps)
+    .then(res => {
+      dispatchErrorsCleanUp(dispatch);
+      callback();
+    })
+    .catch(err => {
+      handleErrorsFromHttpCall(err, dispatch);
+    });
+};
+
+export const updateCoin = (formProps, callback) => async dispatch => {
+  await axios
+    .patch(BACKEND_URL + `/api/wallet/${formProps.ownershipCode}`, formProps)
     .then(res => {
       dispatchErrorsCleanUp(dispatch);
       callback();

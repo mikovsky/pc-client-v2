@@ -8,6 +8,7 @@ import LogoutPage from "./components/auth/LogoutPage";
 import Dashboard from "./components/dashboard/Dashboard";
 import Wallet from "./components/wallet/Wallet";
 import AddCoin from "./components/wallet/AddCoin";
+import UpdateCoin from "./components/wallet/UpdateCoin";
 
 export default () => {
   return (
@@ -20,6 +21,7 @@ export default () => {
         <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/wallet" component={Wallet} />
         <Route exact path="/wallet/addCoin" component={AddCoin} />
+        <Route exact path="/wallet/:ownershipCode" component={UpdateCoin} />
       </App>
     </Router>
   );

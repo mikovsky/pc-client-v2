@@ -8,18 +8,38 @@ import { compose } from "redux";
 
 import PageTitle from "../PageTitle";
 
-class AddCoin extends Component {
+class UpdateCoin extends Component {
   componentDidMount() {
     this.props.fetchTop100Coins();
+    this.handleInitialize();
   }
+
+  handleInitialize = async () => {
+    const { ownershipCode } = this.props.match.params;
+    await this.props.fetchCoin(ownershipCode);
+    const { walletCoin } = this.props;
+    const initData = {
+      coinName: walletCoin.coinName,
+      amount: walletCoin.amount,
+      priceWhenBought: walletCoin.priceWhenBought
+    };
+    this.props.initialize(initData);
+  };
 
   onSubmit = formProps => {
     const coin = this.props.top100Coins.filter(
       coin => coin.name === formProps.coinName
     )[0];
-    formProps.coinCode = coin.id;
-    formProps.coinSymbol = coin.symbol;
-    this.props.addCoin(formProps, () => this.props.history.push("/wallet"));
+
+    const { walletCoin } = this.props;
+
+    walletCoin.amount = formProps.amount;
+    walletCoin.priceWhenBought = formProps.priceWhenBought;
+    walletCoin.coinName = formProps.coinName;
+    walletCoin.coinCode = coin.id;
+    walletCoin.coinSymbol = coin.symbol;
+
+    this.props.updateCoin(walletCoin, () => this.props.history.push("/wallet"));
   };
 
   renderCoinsOption() {
@@ -41,7 +61,7 @@ class AddCoin extends Component {
     const { handleSubmit, errors } = this.props;
     return (
       <React.Fragment>
-        <PageTitle title="Create Coin" />
+        <PageTitle title="Update Coin" />
         <form onSubmit={handleSubmit(this.onSubmit)}>
           <div className="form-group">
             <label>Select Coin</label>
@@ -96,11 +116,11 @@ class AddCoin extends Component {
     );
   }
 }
-
 const mapStateToProps = state => {
   return {
     top100Coins: state.externalApiReducer.top100Coins,
-    errors: state.errorReducer
+    errors: state.errorReducer,
+    walletCoin: state.walletReducer.walletCoin
   };
 };
 
@@ -109,5 +129,5 @@ export default compose(
     mapStateToProps,
     actions
   ),
-  reduxForm({ form: "addCoin" })
-)(AddCoin);
+  reduxForm({ form: "updateCoin" })
+)(UpdateCoin);

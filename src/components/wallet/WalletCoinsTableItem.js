@@ -33,7 +33,10 @@ class WalletCoinsTableItem extends Component {
         </td>
         <td>
           {/* to={`/updateCoin/${coin.ownershipCode}`} */}
-          <Link to="/" className="btn btn-outline-light btn-sm">
+          <Link
+            to={`/wallet/${coin.ownershipCode}`}
+            className="btn btn-outline-light btn-sm"
+          >
             Update
           </Link>
         </td>

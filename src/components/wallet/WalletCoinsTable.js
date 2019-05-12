@@ -10,7 +10,6 @@ class WalletCoinsTable extends Component {
 
   renderTableContent = () => {
     const { walletCoins } = this.props;
-    console.log(walletCoins.length);
     if (!this.props.errors.errorMessage && walletCoins.length > 0) {
       return walletCoins.map(coin => {
         return <WalletCoinsTableItem key={coin.id} coin={coin} />;
